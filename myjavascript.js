@@ -3,6 +3,7 @@ const startGame = document.getElementById("gioca")
 const grigliaElement = document.getElementsByClassName("griglia")[0]
 
 
+
 startGame.addEventListener("click",function(){
     
     const mode = select.value
@@ -10,7 +11,7 @@ startGame.addEventListener("click",function(){
     let rows;
     let columns;
     let cellSize;
-
+    let bombe;
     switch (mode){
         case "1":
         rows = 10
@@ -30,9 +31,39 @@ startGame.addEventListener("click",function(){
     const numerodicelle = rows * columns
     cellSize = `calc( 100% / ${ columns } )`
     grigliaElement.innerHTML = []
+    //dichiarare numeri da generare nel math random
+    bombe = generabombe(16,1,numerodicelle)
+    //fare una funzione per generare le bombe
+    function generabombe(total,min,max) {
+        //cerare un array che continere i numeri delle celle corrispondenti alle bombe
+        const arraybombe = []
+        //non far ripetere i numeri nell'array
+        do{
+    
+            const num = getrandom(min,max)
+            if (!arraybombe.includes (num)){
+                arraybombe.push(num)
+            }
+        } while (arraybombe.length < total)
+        console.log(arraybombe)
+        //far ritornare il numero delle bombe dalla funzione
+        return arraybombe
+    }
 
-    
-    
+    //dichiarare quando la cella è una bomba
+    function èunabomba(num, bombe){
+        if(bombe.includes (parseInt(num))){
+            return true
+        } else {
+            return false
+        }
+    }
+    //generare math random
+    function getrandom(min,max) {
+        min = Math.ceil(min);
+        msx = Math.floor(max);
+        return Math.floor(Math.random() * (max-min+1) + min);
+    }
     for (let i = 0; i < numerodicelle; i++){
         const cell = document.createElement("div")
         cell.style.width = cellSize
@@ -41,8 +72,37 @@ startGame.addEventListener("click",function(){
         grigliaElement.append(cell)
         cell.addEventListener ("click", function (){
             const element = this
-            element.classList.add("blue")
+            //aggiungere la classe bomb se è una bomba altirmenti blue
+            if (èunabomba(this.innerHTML, bombe)){
+                element.classList.add("bomb")
+            } else {
+                element.classList.add("blue")
+            }
         })
     } 
     
 })
+
+
+
+/*
+
+function generabombe(total,min,max){
+
+    const arraybomb = []
+
+    do{
+        const num = getrandomintinclusive(min,max)
+        if (arraybomb.includes(num) === false){
+            arraybomb.push(num)
+        }
+    } while (arraybomb.length < total)
+
+    return arraybomb
+}
+
+
+function getrandomintinclusive(){
+    min =
+    max =
+}*/

@@ -36,8 +36,6 @@ footer p{
 }
 
 main{
-    display: flex;
-    flex-wrap: wrap;
     height: 80vh;
     background-color: #7FFFD4;
 }
@@ -61,7 +59,6 @@ main{
     justify-content: center;
     align-items: center;
     border: 1px solid black;
-    cursor: pointer;
 }
 
 .blue{
