@@ -69,3 +69,8 @@ main{
     background-color: red;
     border: none;
 }
+
+#message{
+    display: flex;
+    justify-content: center;
+}

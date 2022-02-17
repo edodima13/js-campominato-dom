@@ -1,7 +1,7 @@
 const select = document.getElementById("mode")
 const startGame = document.getElementById("gioca")
 const grigliaElement = document.getElementsByClassName("griglia")[0]
-
+const message = document.getElementById("message")
 
 
 startGame.addEventListener("click",function(){
@@ -12,6 +12,8 @@ startGame.addEventListener("click",function(){
     let columns;
     let cellSize;
     let bombe;
+    let score = 0
+
     switch (mode){
         case "1":
         rows = 10
@@ -41,11 +43,12 @@ startGame.addEventListener("click",function(){
         do{
     
             const num = getrandom(min,max)
+            
             if (!arraybombe.includes (num)){
                 arraybombe.push(num)
             }
+
         } while (arraybombe.length < total)
-        console.log(arraybombe)
         //far ritornare il numero delle bombe dalla funzione
         return arraybombe
     }
@@ -58,51 +61,35 @@ startGame.addEventListener("click",function(){
             return false
         }
     }
+
     //generare math random
     function getrandom(min,max) {
         min = Math.ceil(min);
         msx = Math.floor(max);
         return Math.floor(Math.random() * (max-min+1) + min);
     }
+
     for (let i = 0; i < numerodicelle; i++){
+        const scoreUser = score
         const cell = document.createElement("div")
         cell.style.width = cellSize
         cell.append(i + 1)
         cell.classList.add("square")
         grigliaElement.append(cell)
         cell.addEventListener ("click", function (){
+            
             const element = this
+            
             //aggiungere la classe bomb se è una bomba altirmenti blue
             if (èunabomba(this.innerHTML, bombe)){
                 element.classList.add("bomb")
             } else {
                 element.classList.add("blue")
             }
+            message.innerHTML = []
+            score++
+            message.append(`hai totalizzato ${scoreUser} punti`)
         })
     } 
     
 })
-
-
-
-/*
-
-function generabombe(total,min,max){
-
-    const arraybomb = []
-
-    do{
-        const num = getrandomintinclusive(min,max)
-        if (arraybomb.includes(num) === false){
-            arraybomb.push(num)
-        }
-    } while (arraybomb.length < total)
-
-    return arraybomb
-}
-
-
-function getrandomintinclusive(){
-    min =
-    max =
-}*/
