@@ -2,6 +2,7 @@ const select = document.getElementById("mode")
 const startGame = document.getElementById("gioca")
 const grigliaElement = document.getElementsByClassName("griglia")[0]
 const message = document.getElementById("message")
+const gameover = document.getElementById("gameover")
 
 
 startGame.addEventListener("click",function(){
@@ -69,27 +70,34 @@ startGame.addEventListener("click",function(){
         return Math.floor(Math.random() * (max-min+1) + min);
     }
 
+        
+
     for (let i = 0; i < numerodicelle; i++){
-        const scoreUser = score
+        
         const cell = document.createElement("div")
         cell.style.width = cellSize
         cell.append(i + 1)
         cell.classList.add("square")
         grigliaElement.append(cell)
+
         cell.addEventListener ("click", function (){
-            
             const element = this
-            
+           
             //aggiungere la classe bomb se è una bomba altirmenti blue
             if (èunabomba(this.innerHTML, bombe)){
                 element.classList.add("bomb")
+                gameover.innerHTML = []
+                gameover.append(`game over`)
             } else {
                 element.classList.add("blue")
+                score ++
             }
             message.innerHTML = []
-            score++
-            message.append(`hai totalizzato ${scoreUser} punti`)
+            //creare messaggio sul punteggio attuale
+            message.append(`hai totalizzato ${score} punti`)
         })
+        
     } 
     
 })
+
